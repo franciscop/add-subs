@@ -1,6 +1,6 @@
 {
   "name": "add-subs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Add subtitles to an MP4 from a SRT file",
   "repository": "https://github.com/franciscop/add-subs.git",
   "bugs": "https://github.com/franciscop/add-subs/issues",
@@ -11,7 +11,7 @@
   "license": "MIT",
   "main": "index.js",
   "bin": {
-    "add-subs": "./index.js"
+    "add-subs": "index.js"
   },
   "type": "module",
   "scripts": {},
