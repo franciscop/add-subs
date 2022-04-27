@@ -1,0 +1,25 @@
+{
+  "name": "sub",
+  "version": "1.0.0",
+  "description": "Add subtitles to an MP4 from a SRT file",
+  "repository": "https://github.com/franciscop/add-subs.git",
+  "bugs": "https://github.com/franciscop/add-subs/issues",
+  "funding": {
+    "url": "https://www.paypal.me/franciscopresencia/19"
+  },
+  "author": "Francisco Presencia <public@francisco.io> (https://francisco.io/)",
+  "license": "MIT",
+  "main": "index.js",
+  "bin": {
+    "add-subs": "./index.js"
+  },
+  "type": "module",
+  "scripts": {},
+  "keywords": [],
+  "dependencies": {
+    "atocha": "^1.2.2",
+    "files": "^2.1.1",
+    "meow": "^9.0.0",
+    "ora": "^5.4.0"
+  }
+}
