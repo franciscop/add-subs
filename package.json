@@ -1,6 +1,6 @@
 {
   "name": "add-subs",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Add subtitles to an MP4 from a SRT file",
   "repository": "https://github.com/franciscop/add-subs.git",
   "bugs": "https://github.com/franciscop/add-subs/issues",
