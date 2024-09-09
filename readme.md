@@ -1,9 +1,10 @@
 # Add Subs
 
-You have a `~/Movies/file.mp4`, and a `~/Movies/file.srt`. You want to merge them into one. Easy, just run:
+You have a `~/Movies/file.mp4` (or `.mkv`), and a `~/Movies/file.srt`. You want to merge them into one. Easy, just run:
 
 ```bash
 npx add-subs "~/Movies/file.mp4"
+npx add-subs "~/Movies/another.mkv"
 ```
 
 > You need to have `ffmpeg` installed in your terminal
