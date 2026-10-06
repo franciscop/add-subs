@@ -1,6 +1,6 @@
 {
   "name": "add-subs",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Transcribe a video and embed the subtitles in it",
   "repository": "github:franciscop/add-subs",
   "author": "Francisco Presencia <public@francisco.io> (https://francisco.io/)",
