@@ -16,10 +16,10 @@ npm install -g add-subs     # or install it, which also adds the shorter `subs` 
 
 It needs [Node](https://nodejs.org) 20+, [ffmpeg](https://ffmpeg.org), and
 [whisper](https://github.com/openai/whisper). If they are missing, `add-subs` stops
-and prints the commands to install it. The first transcription also downloads the whisper
+and prints the commands to install them. The first transcription also downloads the whisper
 model, about 1.5 GB.
 
-See [macOS instructions](#macos) and [linux instructions](#linux).
+See [macOS instructions](#macos) and [Linux instructions](#linux).
 
 ## Usage
 
@@ -102,7 +102,7 @@ moving on to the next file. Rewriting needs free disk space equal to the size of
 
 ## Speed
 
-Whisper runs on CPU here, roughly real time: about 45 minutes for a 45 minute episode on
+On a Mac, whisper runs on the CPU, roughly real time: about 45 minutes for a 45 minute episode on
 `turbo`. For a serious speedup look at [whisper.cpp](https://github.com/ggerganov/whisper.cpp)
 with Core ML, or [faster-whisper](https://github.com/SYSTRAN/faster-whisper).
 
