@@ -19,7 +19,7 @@ It needs [Node](https://nodejs.org) 20+, [ffmpeg](https://ffmpeg.org), and
 and prints the commands to install them. The first transcription also downloads the whisper
 model, about 1.5 GB.
 
-See [macOS instructions](#macos) and [Linux instructions](#linux).
+See the [macOS](#macos), [Linux](#linux), and [Windows](#windows) instructions.
 
 ## Usage
 
@@ -164,4 +164,40 @@ built or downloaded it by hand. Add its folder to the PATH:
 
 ```sh
 echo 'export PATH="/folder/with/ffmpeg:$PATH"' >> ~/.bashrc
+```
+
+### Windows
+
+In PowerShell, install Node, ffmpeg, and Python:
+
+```powershell
+winget install OpenJS.NodeJS.LTS
+winget install Gyan.FFmpeg
+winget install Python.Python.3.12
+```
+
+Open a new terminal so they are on the PATH, then install whisper:
+
+```powershell
+py -m pip install --user pipx
+py -m pipx ensurepath
+py -m pipx install openai-whisper
+```
+
+Open a new terminal again and check that both tools are found:
+
+```powershell
+ffmpeg -version
+whisper --help
+```
+
+If either says `is not recognized as the name of a cmdlet` even though it installed fine, it's
+missing from your PATH. Fix it, then open a new terminal:
+
+```powershell
+# ffmpeg, from winget
+[Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path", "User") + ";$env:LOCALAPPDATA\Microsoft\WinGet\Links", "User")
+
+# whisper, from pipx
+py -m pipx ensurepath
 ```

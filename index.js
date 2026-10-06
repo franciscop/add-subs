@@ -402,6 +402,17 @@ const SETUP = {
       path: "pipx ensurepath",
     },
   },
+  win32: {
+    docs: "https://github.com/franciscop/add-subs#windows",
+    ffmpeg: {
+      install: "winget install Gyan.FFmpeg",
+      path: `[Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path", "User") + ";$env:LOCALAPPDATA\\Microsoft\\WinGet\\Links", "User")`,
+    },
+    whisper: {
+      install: "py -m pip install --user pipx; py -m pipx install openai-whisper",
+      path: "py -m pipx ensurepath",
+    },
+  },
 };
 
 const isInstalled = (cmd) =>
