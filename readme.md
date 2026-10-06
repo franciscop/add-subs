@@ -106,6 +106,8 @@ Whisper runs on CPU here, roughly real time: about 45 minutes for a 45 minute ep
 `turbo`. For a serious speedup look at [whisper.cpp](https://github.com/ggerganov/whisper.cpp)
 with Core ML, or [faster-whisper](https://github.com/SYSTRAN/faster-whisper).
 
+## Dependencies
+
 ### macOS
 
 Install [Homebrew](https://brew.sh) if you don't have it yet, then:
