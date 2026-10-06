@@ -1,25 +1,38 @@
 {
   "name": "add-subs",
-  "version": "1.1.0",
-  "description": "Add subtitles to an MP4 from a SRT file",
-  "repository": "https://github.com/franciscop/add-subs.git",
-  "bugs": "https://github.com/franciscop/add-subs/issues",
-  "funding": {
-    "url": "https://www.paypal.me/franciscopresencia/19"
-  },
+  "version": "2.0.0",
+  "description": "Transcribe a video and embed the subtitles in it",
+  "repository": "github:franciscop/add-subs",
   "author": "Francisco Presencia <public@francisco.io> (https://francisco.io/)",
+  "funding": "https://www.paypal.me/franciscopresencia/19",
   "license": "MIT",
-  "main": "index.js",
+  "keywords": [
+    "subtitles",
+    "subs",
+    "srt",
+    "whisper",
+    "transcribe",
+    "transcription",
+    "translate",
+    "ffmpeg",
+    "mp4",
+    "mkv",
+    "video",
+    "cli"
+  ],
+  "scripts": {
+    "start": "bun test --watch",
+    "test": "bun test"
+  },
   "bin": {
-    "add-subs": "index.js"
+    "add-subs": "index.js",
+    "subs": "index.js"
   },
   "type": "module",
-  "scripts": {},
-  "keywords": [],
-  "dependencies": {
-    "atocha": "^2.0.0",
-    "files": "^2.1.1",
-    "meow": "^9.0.0",
-    "ora": "^5.4.0"
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=20"
   }
 }
