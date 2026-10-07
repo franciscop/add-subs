@@ -14,12 +14,12 @@ const HELP = `
     $ add-subs --remove <video...>    take the embedded subtitles back out
 
   Options
-    --lang, -l <name>    Spoken language (default: English, "auto" to detect)
-    --model, -m <name>   Whisper model (default: turbo)
-    --translate, -t      Write English subtitles for non-English speech
-    --attach, -a         Embed the existing <name>.srt, then delete it
-    --remove, -r         Remove the subtitles that add-subs embedded
-    --help, -h           Show this help
+    --language, --lang, -l <name>    Spoken language (default: English, "auto" to detect)
+    --model, -m <name>               Whisper model (default: turbo)
+    --translate, -t                  Write English subtitles for non-English speech
+    --attach, -a                     Embed the existing <name>.srt, then delete it
+    --remove, -r                     Remove the subtitles that add-subs embedded
+    --help, -h                       Show this help
 
   Files that cannot hold a subtitle track (audio, avi, webm) get a <name>.srt
   beside them instead. Embedding replaces any track add-subs embedded
@@ -54,6 +54,7 @@ try {
     allowPositionals: true,
     options: {
       lang: { type: "string", short: "l" },
+      language: { type: "string" },
       model: { type: "string", short: "m" },
       translate: { type: "boolean", short: "t" },
       attach: { type: "boolean", short: "a" },
@@ -125,12 +126,16 @@ const LANGUAGES = [
   ["gl", "glg", "Galician"],
 ];
 
+// whisper only accepts lowercase codes like "ja" or capitalized names like "Japanese".
 function language(input) {
   const key = input.toLowerCase();
   const hit = LANGUAGES.find(([two, three, name]) =>
     [two, three, name.toLowerCase()].includes(key),
   );
-  return hit ? { code: hit[1], name: hit[2] } : { code: "und", name: input };
+  if (hit) return { code: hit[1], name: hit[2], whisper: hit[0] };
+  const name =
+    key.length <= 3 ? key : key.replace(/\b\w/g, (c) => c.toUpperCase());
+  return { code: "und", name, whisper: name };
 }
 
 function die(msg) {
@@ -194,7 +199,8 @@ async function runWhisper(input, outDir, opts) {
     "--word_timestamps",
     "True",
   ];
-  if (opts.lang.toLowerCase() !== "auto") args.push("--language", opts.lang);
+  if (opts.lang.toLowerCase() !== "auto")
+    args.push("--language", language(opts.lang).whisper);
   if (opts.translate) args.push("--task", "translate");
 
   const out = await exec("whisper", args, {
@@ -346,14 +352,15 @@ async function removeSubs(video) {
 function parseOptions({ flags, input }) {
   if (flags.help) cli.showHelp(0);
   if (input.length === 0) cli.showHelp(1);
-  if (flags.lang === "" || flags.model === "") die("missing value for option");
+  const lang = flags.lang ?? flags.language;
+  if (lang === "" || flags.model === "") die("missing value for option");
   if (flags.attach && flags.remove)
     die("--attach and --remove cannot be combined");
   if (flags.translate && (flags.attach || flags.remove))
     die("--translate only applies when transcribing");
 
   const opts = {
-    lang: flags.lang ?? (flags.translate ? "auto" : "English"),
+    lang: lang ?? (flags.translate ? "auto" : "English"),
     model: flags.model ?? (flags.translate ? "large" : "turbo"),
     translate: flags.translate,
     attach: flags.attach,
@@ -409,7 +416,8 @@ const SETUP = {
       path: `[Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path", "User") + ";$env:LOCALAPPDATA\\Microsoft\\WinGet\\Links", "User")`,
     },
     whisper: {
-      install: "py -m pip install --user pipx; py -m pipx install openai-whisper",
+      install:
+        "py -m pip install --user pipx; py -m pipx install openai-whisper",
       path: "py -m pipx ensurepath",
     },
   },
@@ -443,7 +451,9 @@ async function checkTools(tools) {
 
 const opts = parseOptions(cli);
 
-await checkTools(opts.attach || opts.remove ? ["ffmpeg"] : ["ffmpeg", "whisper"]);
+await checkTools(
+  opts.attach || opts.remove ? ["ffmpeg"] : ["ffmpeg", "whisper"],
+);
 
 let failed = 0;
 for (const file of opts.files) {

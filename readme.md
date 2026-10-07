@@ -33,14 +33,14 @@ add-subs --attach video.mp4         # embed an existing video.srt instead of tra
 add-subs --remove video.mp4         # take the embedded subtitles back out
 ```
 
-| option               |                                                                          |
-| -------------------- | ------------------------------------------------------------------------ |
-| `-l, --lang <name>`  | Spoken language. Default `English`, or `auto` to detect.                 |
-| `-m, --model <name>` | Whisper model. Default `turbo`.                                          |
-| `-t, --translate`    | Write English subtitles for non-English speech.                          |
-| `-a, --attach`       | Embed the existing `<name>.srt` instead of transcribing, then delete it. |
-| `-r, --remove`       | Remove the subtitles that `add-subs` embedded.                           |
-| `-h, --help`         | Show help.                                                               |
+| option                          |                                                                                                     |
+| ------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `-l, --lang, --language <name>` | Spoken language, as a name or code like `Japanese` or `ja`. Default `English`, or `auto` to detect. |
+| `-m, --model <name>`            | Whisper model. Default `turbo`.                                                                     |
+| `-t, --translate`               | Write English subtitles for non-English speech.                                                     |
+| `-a, --attach`                  | Embed the existing `<name>.srt` instead of transcribing, then delete it.                            |
+| `-r, --remove`                  | Remove the subtitles that `add-subs` embedded.                                                      |
+| `-h, --help`                    | Show help.                                                                                          |
 
 ## Embedding
 

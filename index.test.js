@@ -124,6 +124,15 @@ describe("--attach", () => {
     expect(subtitles(video)[0].language).toBe("spa");
   });
 
+  it("accepts --language in any case", () => {
+    const video = join(dir, "video.mkv");
+    makeVideo(video);
+    writeFileSync(join(dir, "video.srt"), SRT);
+
+    run("--attach", "--language", "japanese", video);
+    expect(subtitles(video)[0].language).toBe("jpn");
+  });
+
   it("replaces its own track instead of stacking", () => {
     const video = join(dir, "video.mp4");
     makeVideo(video);
@@ -197,7 +206,7 @@ describe.skipIf(!has("whisper") || !has("say"))("transcription", () => {
     spawnSync("say", ["-o", speech, "The professor has a plan."]);
     ffmpeg("-f", "lavfi", "-i", "testsrc=size=160x120:rate=10", "-i", speech, "-shortest", "-c:v", "mpeg4", "-c:a", "aac", video);
 
-    expect(run(video).code).toBe(0);
+    expect(run("--language", "english", video).code).toBe(0);
     expect(subtitles(video)).toEqual([{ type: "subtitle", language: "eng", handler: "subs" }]);
     expect(existsSync(join(dir, "video.srt"))).toBe(false);
     const text = spawnSync("ffmpeg", ["-v", "error", "-i", video, "-map", "0:s:0", "-f", "srt", "-"], { encoding: "utf8" }).stdout;
